@@ -5,12 +5,12 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "bucket" {
-  bucket = "s3-website-test.mobilecorp.com"
+  bucket = "portfolio.ryanfitz.co"
   acl = "public-read"
 
   website {
     index_document = "index.html"
-    error_document = "error.html"
+    error_document = "error404.html"
   }
 }
 

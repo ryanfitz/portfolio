@@ -42,7 +42,7 @@ gulp.task('imgopt', function() {
 gulp.task('publish', ['usemin', 'imgopt'],function() {
   var aws = {
     params: {
-      Bucket: 's3-website-test.mobilecorp.com'
+      Bucket: 'portfolio.ryanfitz.co'
     },
     region: 'us-east-1',
     credentials: new AWS.SharedIniFileCredentials({profile: 'dev'})
