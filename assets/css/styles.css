@@ -15,8 +15,7 @@
 }
 
 .navbar-header .navbar-brand h1 {
-    margin: 0;
-    margin-left: 15px;
+    margin: 0 0 0 15px;
     line-height: 70px;
 }
 
@@ -301,9 +300,15 @@ header .navbar-nav > li a {
 
 }
 
+
 @media (max-width: 767px) {
+    header.navbar .navbar-brand {
+        padding: 0 0 0 5px;
+    }
+
     .navbar-header .navbar-brand h1 {
         line-height: 50px;
+        margin: 0;
     }
 
     #jumbotron-slider .item .row {
@@ -350,5 +355,13 @@ header .navbar-nav > li a {
     #services.services3 .service  {
         margin: 0 0 10px;
         padding: 20px;
+    }
+}
+
+@media (max-width : 568px) {
+    .partner-section p {
+        font-size: 12px;
+        line-height: 18px;
+        padding: 0;
     }
 }
