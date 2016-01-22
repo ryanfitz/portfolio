@@ -11,6 +11,7 @@ var imagemin = require('gulp-imagemin');
 var del = require('del');
 var awspublish = require('gulp-awspublish');
 var AWS = require('aws-sdk');
+var cloudfront = require("gulp-cloudfront");
 
 var webserver = require('gulp-webserver');
 
@@ -39,30 +40,36 @@ gulp.task('imgopt', function() {
     .pipe(gulp.dest('dist/assets/images'));
 });
 
+var credentials = new AWS.SharedIniFileCredentials({profile: 'dev'});
+AWS.config.credentials = credentials;
+AWS.config.update({region: 'us-east-1'});
+
 gulp.task('publish', ['usemin', 'imgopt'],function() {
   var aws = {
     params: {
       Bucket: 'portfolio.ryanfitz.co'
     },
     region: 'us-east-1',
-    credentials: new AWS.SharedIniFileCredentials({profile: 'dev'})
+    credentials: credentials,
+    distributionId: 'EC8V2BS76CSTE'
   };
 
   var publisher = awspublish.create(aws);
   var headers = {'Cache-Control': 'max-age=315360000, no-transform, public'};
 
-  var revAll = new RevAll({
-    dontRenameFile: [/\.html$/],
-    dontUpdateReference: [/\.html$/]
-  });
+  // var revAll = new RevAll({
+  //   dontRenameFile: [/\.html$/],
+  //   dontUpdateReference: [/\.html$/]
+  // });
 
+  var revAll = new RevAll();
   return gulp.src('dist/**')
     .pipe(revAll.revision())
     .pipe(awspublish.gzip())
     .pipe(publisher.publish(headers))
     .pipe(publisher.cache())
-    .pipe(awspublish.reporter());
-    // .pipe(cloudfront(aws));
+    .pipe(awspublish.reporter())
+    .pipe(cloudfront(aws));
 });
 
 gulp.task('webserver', function() {
