@@ -1,6 +1,10 @@
-
 .faded {
     opacity: 0;
+}
+
+.hatch-green {
+    color: rgba(22,160,133,1);
+    font-weight: 600;
 }
 
 .navbar-header .navbar-brand img, .navbar-header .navbar-brand h1 {
